@@ -1,0 +1,53 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/category/category",
+    "pages/book/book",
+    "pages/user/user",
+    "pages/user/user-login",
+    "pages/user/user-Info",
+    "pages/404/404",
+    "pages/search/search",
+    "pages/detail/detail",
+    "pages/comic-page/comic-page"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "漫画",
+    "navigationBarBackgroundColor": "#fff",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#999",
+    "selectedColor": "#999",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/image/home.png",
+        "selectedIconPath": "static/image/home-select.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/category/category",
+        "iconPath": "static/image/category.png",
+        "selectedIconPath": "static/image/category-select.png",
+        "text": "分类"
+      },
+      {
+        "pagePath": "pages/book/book",
+        "iconPath": "static/image/book.png",
+        "selectedIconPath": "static/image/book-select.png",
+        "text": "书架"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "iconPath": "static/image/user.png",
+        "selectedIconPath": "static/image/user-select.png",
+        "text": "用户"
+      }
+    ]
+  },
+  "usingComponents": {}
+}
