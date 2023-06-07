@@ -17,10 +17,7 @@
 					v-for="(listItem,listIndex) in centerBtnList"
 					:key="listIndex"
 			>
-				<u-icon
-						:name="listItem.name"
-						:size="60"
-				></u-icon>
+				<u-image width="80rpx" height="80rpx" :src="listItem.image"></u-image>
 				<text class="grid-text">{{listItem.title}}</text>
 			</u-grid-item>
 		</u-grid>
@@ -38,7 +35,7 @@
 					</view>
 				</view>
 				
-				<view class="group-btn"><u-button type="primary" @click="handleUpdateUser()">{{item.btnStr}}</u-button></view>
+				<view class="group-btn"><u-button type="primary" size="mini" @click="handleUpdateUser()">{{item.btnStr}}</u-button></view>
 			</view>
 		</view>
 		
@@ -62,43 +59,43 @@
 		}])
 	const centerBtnList = reactive([
 		{
-			name: 'photo',
+			image: '/static/image/btn_home1.png',
 			title: '发布群'
 			},
 			{
-				name: 'scan',
+				image: '/static/image/btn_home2.png',
 				title: '悬赏群'
 			},
 			{
-				name: 'star',
+				image: '/static/image/btn_home3.png',
 				title: '会员特权'
 			},
 			{
-				name: 'hourglass',
+				image: '/static/image/btn_home4.png',
 				title: '分享赚佣金'
 			},
 			{
-				name: 'home',
+				image: '/static/image/btn_home5.png',
 				title: '充值'
 			},
 			{
-				name: 'star',
+				image: '/static/image/btn_home6.png',
 				title: '真人增粉'
 			},
 			{
-				name: 'integral',
+				image: '/static/image/btn_home7.png',
 				title: '点赞评论'
 			},
 			{
-				name: 'kefu-ermai',
+				image: '/static/image/btn_home8.png',
 				title: '抖音视频'
 			},
 			{
-				name: 'coupon',
+				image: '/static/image/btn_home9.png',
 				title: '广告群发'
 			},
 			{
-				name: 'gift',
+				image: '/static/image/btn_home10.png',
 				title: '物品交易'
 			},
 		])
@@ -223,12 +220,11 @@
 		.group-item {
 			display: flex;
 			width: 100%;
-			margin: 10rpx;
 			justify-content: start;
 			align-items: center;
-			border-bottom: 1rpx solid #000;
+			border-top: 3rpx solid #389bff;
 			.u-image{
-				margin: 10rpx;
+				margin: 20rpx;
 			}
 			.group-text {
 				display: flex;

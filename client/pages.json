@@ -101,26 +101,26 @@
 			},
 			{
 				"pagePath": "pages/folks/folks",
-				"iconPath": "static/image/category.png",
-				"selectedIconPath": "static/image/category-select.png",
+				"iconPath": "static/image/folks.png",
+				"selectedIconPath": "static/image/folks-select.png",
 				"text": "宗亲老乡"
 			},
 			{
 				"pagePath": "pages/fellow/fellow",
-				"iconPath": "static/image/book.png",
-				"selectedIconPath": "static/image/book-select.png",
+				"iconPath": "static/image/fellow.png",
+				"selectedIconPath": "static/image/fellow-select.png",
 				"text": "校友同事"
 			},
 			{
 				"pagePath": "pages/other/other",
-				"iconPath": "static/image/book.png",
-				"selectedIconPath": "static/image/book-select.png",
+				"iconPath": "static/image/other.png",
+				"selectedIconPath": "static/image/other-select.png",
 				"text": "兴趣其他"
 			},
 			{
 				"pagePath": "pages/mine/mine",
-				"iconPath": "static/image/user.png",
-				"selectedIconPath": "static/image/user-select.png",
+				"iconPath": "static/image/mine.png",
+				"selectedIconPath": "static/image/mine-select.png",
 				"text": "我的"
 			}
 		]
