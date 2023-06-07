@@ -2,7 +2,8 @@ import showMsg from "./showMsg";
 // 登录白名单 ,由于后端接口除了登录页，其它都需要登录，已登录不能跳到登录页
 const whiteList = ['/pages/user/user-login', '/pages/404/404']
 
-let list = ["navigateTo", "redirectTo", "reLaunch", "switchTab", "navigateBack",];
+// let list = ["navigateTo", "redirectTo", "reLaunch", "switchTab", "navigateBack",];
+let list = [];
 list.forEach(item => {
 	uni.addInterceptor(item, {
 		// invoke根据返回值判断是否继续执行调整

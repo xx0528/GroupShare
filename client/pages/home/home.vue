@@ -1,0 +1,254 @@
+
+ <template>
+	<view class="top">
+		<u-swiper
+				:list="swiperList"
+				keyName="image"
+				showTitle
+				:autoplay="true"
+				circular
+		></u-swiper>
+		
+		<u-search placeholder="输入关键字搜索群" v-model="searchStr" inputAlign="center" :showAction="false"></u-search>
+	</view>
+	<view>
+		<u-grid :border="false" col="5" @click="clickGridItem">
+			<u-grid-item
+					v-for="(listItem,listIndex) in centerBtnList"
+					:key="listIndex"
+			>
+				<u-icon
+						:name="listItem.name"
+						:size="60"
+				></u-icon>
+				<text class="grid-text">{{listItem.title}}</text>
+			</u-grid-item>
+		</u-grid>
+	</view>
+	<view>
+		<view class="group-content" v-for="(item, itemIdx) in groupList">
+			<view class="group-item">
+				<u-image width="100rpx" height="100rpx" :src="item.image"></u-image>
+				<view class="group-text">
+					<text>{{item.name}}</text>
+					<view class="item-text">
+						<text>{{item.member}}</text>
+						<text>{{item.location}}</text>
+						<text>{{item.source}}</text>
+					</view>
+				</view>
+				
+				<view class="group-btn"><u-button type="primary" @click="handleUpdateUser()">{{item.btnStr}}</u-button></view>
+			</view>
+		</view>
+		
+	</view>
+</template>
+
+<script setup lang="ts">
+	import { reactive, ref } from "vue";
+	import { onLoad, onShow } from '@dcloudio/uni-app'
+	
+	const searchStr = ref("")
+	const swiperList = reactive([{
+			image: 'https://cdn.uviewui.com/uview/swiper/swiper2.png',
+			title: '昨夜星辰昨夜风，画楼西畔桂堂东'
+		},{
+			image: 'https://cdn.uviewui.com/uview/swiper/swiper1.png',
+			title: '身无彩凤双飞翼，心有灵犀一点通'
+		},{
+			image: 'https://cdn.uviewui.com/uview/swiper/swiper3.png',
+			title: '谁念西风独自凉，萧萧黄叶闭疏窗，沉思往事立残阳'
+		}])
+	const centerBtnList = reactive([
+		{
+			name: 'photo',
+			title: '发布群'
+			},
+			{
+				name: 'scan',
+				title: '悬赏群'
+			},
+			{
+				name: 'star',
+				title: '会员特权'
+			},
+			{
+				name: 'hourglass',
+				title: '分享赚佣金'
+			},
+			{
+				name: 'home',
+				title: '充值'
+			},
+			{
+				name: 'star',
+				title: '真人增粉'
+			},
+			{
+				name: 'integral',
+				title: '点赞评论'
+			},
+			{
+				name: 'kefu-ermai',
+				title: '抖音视频'
+			},
+			{
+				name: 'coupon',
+				title: '广告群发'
+			},
+			{
+				name: 'gift',
+				title: '物品交易'
+			},
+		])
+	const indexList = reactive([])
+	const urls = reactive([
+						'https://cdn.uviewui.com/uview/album/1.jpg',
+						'https://cdn.uviewui.com/uview/album/2.jpg',
+						'https://cdn.uviewui.com/uview/album/3.jpg',
+						'https://cdn.uviewui.com/uview/album/4.jpg',
+						'https://cdn.uviewui.com/uview/album/5.jpg',
+						'https://cdn.uviewui.com/uview/album/6.jpg',
+						'https://cdn.uviewui.com/uview/album/7.jpg',
+						'https://cdn.uviewui.com/uview/album/8.jpg',
+						'https://cdn.uviewui.com/uview/album/9.jpg',
+						'https://cdn.uviewui.com/uview/album/10.jpg',
+					])
+	const groupList = reactive([
+		{
+			image : 'https://cdn.uviewui.com/uview/album/1.jpg',
+			name: 'xx行业客户群1',
+			member: '232人群',
+			location: '北京市',
+			source: '管理员共享',
+			btnStr: '加群',
+		},
+		{
+			image : 'https://cdn.uviewui.com/uview/album/2.jpg',
+			name: 'xx行业群',
+			member: '22人群',
+			location: '深圳市',
+			source: '管理员共享',
+			btnStr: '加群',
+		},
+		{
+			image : 'https://cdn.uviewui.com/uview/album/3.jpg',
+			name: 'xx行业客户群2',
+			member: '232人群',
+			location: '北京市',
+			source: '管理员共享',
+			btnStr: '加群',
+		},
+		{
+			image : 'https://cdn.uviewui.com/uview/album/4.jpg',
+			name: 'xx行业客户群3',
+			member: '342人群',
+			location: '北京市',
+			source: '管理员共享',
+			btnStr: '共享',
+		},
+		{
+			image : 'https://cdn.uviewui.com/uview/album/5.jpg',
+			name: '客户群8',
+			member: '232人群',
+			location: '北京市',
+			source: '管理员共享',
+			btnStr: '加群',
+		},
+		{
+			image : 'https://cdn.uviewui.com/uview/album/6.jpg',
+			name: 'xx行业客户群1',
+			member: '2772人群',
+			location: '北京市',
+			source: '管理员共享',
+			btnStr: '加群',
+		},
+		{
+			image : 'https://cdn.uviewui.com/uview/album/7.jpg',
+			name: 'xx行业客2户群2',
+			member: '92人群',
+			location: 'xx市',
+			source: '管理员共享',
+			btnStr: '加群',
+		},
+		{
+			image : 'https://cdn.uviewui.com/uview/album/8.jpg',
+			name: 'xx行43业客户群1',
+			member: '202人群',
+			location: '长沙市',
+			source: '管理员共享',
+			btnStr: '加群',
+		},
+		{
+			image : 'https://cdn.uviewui.com/uview/album/9.jpg',
+			name: 'xx行业客户群1',
+			member: '756人群',
+			location: '广州市',
+			source: '管理员共享',
+			btnStr: '加群',
+		},
+	])
+	const clickGridItem = (name: string) => {
+		console.log("点击了--" + name)
+	}
+	
+	onLoad(() => {
+		loadmore()
+	})
+	onShow(() => {
+	})
+	
+	const scrolltolower = () => {
+		loadmore()
+	}
+	const loadmore = () => {
+		for (let i = 0; i < 30; i++) {
+			indexList.push({
+				url: urls[uni.$u.random(0, urls.length - 1)]
+			})
+		}
+	}
+</script>
+
+<style lang="scss" scoped>
+	.top {
+		padding: 0rpx 8rpx;
+		.u-search {
+			padding: 25rpx 25rpx 0rpx;
+		}
+	}
+	.group-content {
+		display: flex;
+		.group-item {
+			display: flex;
+			width: 100%;
+			margin: 10rpx;
+			justify-content: start;
+			align-items: center;
+			border-bottom: 1rpx solid #000;
+			.u-image{
+				margin: 10rpx;
+			}
+			.group-text {
+				display: flex;
+				flex-direction: column;
+				text{
+					font-weight: bold;
+				}
+				.item-text {
+					display: flex;
+					font-size: 14rpx;
+					margin-top: 10rpx;
+					text{
+						margin-right: 20rpx;
+					}
+				}
+			}
+			.group-btn {
+				width: 150rpx;
+				margin-left: auto;
+			}
+		}
+	}
+</style>

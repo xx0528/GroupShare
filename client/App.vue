@@ -16,16 +16,16 @@
 				})
 			})
 			// #endif
-			// #ifdef H5
-			// h5路由history模式下 浏览器 地址栏 输入地址切换路由 拦截
-			const whiteList = ['/pages/user/user-login']
-			const user= uni.getStorageSync("USER")
-			if(!user && !whiteList.includes(window.location.pathname)){
-			    uni.reLaunch({
-			        url:'/pages/user/user-login'
-			    })
-			} 
-			// #endif
+			// // #ifdef H5
+			// // h5路由history模式下 浏览器 地址栏 输入地址切换路由 拦截
+			// const whiteList = ['/pages/user/user-login']
+			// const user= uni.getStorageSync("USER")
+			// if(!user && !whiteList.includes(window.location.pathname)){
+			//     uni.reLaunch({
+			//         url:'/pages/user/user-login'
+			//     })
+			// } 
+			// // #endif
 		},
 		onShow: function() {
 		},
