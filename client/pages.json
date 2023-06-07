@@ -46,7 +46,7 @@
 			"style": {
 				"navigationBarTitleText": "个人中心",
 				"enablePullDownRefresh": false,
-				"navigationBarBackgroundColor": "#ff7830"
+				"navigationBarBackgroundColor": "#389cff"
 			}
 		},{
             "path" : "pages/404/404",
@@ -70,7 +70,7 @@
             "path" : "pages/detail/detail",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "漫画详情",
+                "navigationBarTitleText": "群详情",
                 "enablePullDownRefresh": false,
 				"onReachBottomDistance": 500
 				
@@ -81,7 +81,7 @@
             "path" : "pages/comic-page/comic-page",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "阅读",
+                "navigationBarTitleText": "申请",
                 "enablePullDownRefresh": false
 				
             }
@@ -127,7 +127,8 @@
 	},
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "漫画",
+		"navigationBarTitleText": "群享",
+		"navigationStyle": "custom",
 		"navigationBarBackgroundColor": "#fff",
 		"backgroundColor": "#F8F8F8"
 	},

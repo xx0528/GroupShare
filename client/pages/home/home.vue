@@ -9,7 +9,7 @@
 				circular
 		></u-swiper>
 		
-		<u-search placeholder="输入关键字搜索群" v-model="searchStr" inputAlign="center" :showAction="false"></u-search>
+		<u-search placeholder="输入关键字搜索群" v-model="searchStr" inputAlign="center" @click="goSearchPage()" :showAction="false"></u-search>
 	</view>
 	<view>
 		<u-grid :border="false" col="5" @click="clickGridItem">
@@ -17,7 +17,7 @@
 					v-for="(listItem,listIndex) in centerBtnList"
 					:key="listIndex"
 			>
-				<u-image width="80rpx" height="80rpx" :src="listItem.image"></u-image>
+				<u-image width="50rpx" height="50rpx" :src="listItem.image"></u-image>
 				<text class="grid-text">{{listItem.title}}</text>
 			</u-grid-item>
 		</u-grid>
@@ -67,28 +67,8 @@
 				title: '悬赏群'
 			},
 			{
-				image: '/static/image/btn_home3.png',
-				title: '会员特权'
-			},
-			{
 				image: '/static/image/btn_home4.png',
 				title: '分享赚佣金'
-			},
-			{
-				image: '/static/image/btn_home5.png',
-				title: '充值'
-			},
-			{
-				image: '/static/image/btn_home6.png',
-				title: '真人增粉'
-			},
-			{
-				image: '/static/image/btn_home7.png',
-				title: '点赞评论'
-			},
-			{
-				image: '/static/image/btn_home8.png',
-				title: '抖音视频'
 			},
 			{
 				image: '/static/image/btn_home9.png',
@@ -199,6 +179,7 @@
 	const scrolltolower = () => {
 		loadmore()
 	}
+	
 	const loadmore = () => {
 		for (let i = 0; i < 30; i++) {
 			indexList.push({
@@ -206,11 +187,18 @@
 			})
 		}
 	}
+	
+	const goSearchPage = () =>{
+		uni.navigateTo({
+			url:'/pages/search/search'
+		})
+	}
+	
 </script>
 
 <style lang="scss" scoped>
 	.top {
-		padding: 0rpx 8rpx;
+		padding: 8rpx 8rpx;
 		.u-search {
 			padding: 25rpx 25rpx 0rpx;
 		}
@@ -222,7 +210,7 @@
 			width: 100%;
 			justify-content: start;
 			align-items: center;
-			border-top: 3rpx solid #389bff;
+			border-top: 3rpx solid $uni-main-color;
 			.u-image{
 				margin: 20rpx;
 			}

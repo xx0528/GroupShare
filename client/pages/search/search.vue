@@ -2,7 +2,7 @@
 	<view class="search">
 		<!-- <SearchInput /> -->
 		<view class="search-header">
-			<u-search placeholder="输入作品名" v-model.trim="state.searchKeyWord" @search="searchCartoon" @custom="searchCartoon"
+			<u-search placeholder="输入关键字" v-model.trim="state.searchKeyWord" @search="searchCartoon" @custom="searchCartoon"
 				@clear="clearSearch" :action-style="{color:'#ff7830'}">
 			</u-search>
 		</view>
@@ -85,7 +85,20 @@
 		},
 		isSearch: false, // 是否已输入
 		isActive:false, // 是否开启关键词下拉列表
-		searchHotList: [],
+		searchHotList: [
+			{
+				id : 1,
+				name : "上海客户群",
+			},
+			{
+				id : 2,
+				name : "北京IT群",
+			},
+			{
+				id : 3,
+				name : "宝妈兼职群",
+			}
+		],
 		searchAllList: [],
 		searchList: [],
 		start: 0, //  搜索漫画的列表的开始切割的位置

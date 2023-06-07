@@ -14,10 +14,10 @@
 				src="https://static.mkzcdn.com/mobile/img/detail/bg_banner.png"></u-image>
 		</view>
 		<view class="detail-btn">
-			<view class="btn-collect">阅读量（{{detailData.read}}）</view>
+			<view class="btn-collect">群成员数（{{detailData.read}}）</view>
 			<view class="btn-read">
 				<u-button :custom-style="readBtnStyle" @click="onComicPage"
-					shape="circle">{{state.isRead?'继续阅读':'开始阅读'}}</u-button>
+					shape="circle">{{state.isRead?'继续阅读':'申请加入'}}</u-button>
 			</view>
 		</view>
 		<u-tabs :list="state.list" active-color="#28292d" bar-width="120" :is-scroll="false" v-model="state.current"
