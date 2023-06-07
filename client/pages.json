@@ -27,7 +27,7 @@
 			"path": "pages/mine/mine",
 			"style": {
 				"navigationBarTitleText": "我的",
-				"enablePullDownRefresh": false				
+				"enablePullDownRefresh": false
 			}
 		}, {
 			"path": "pages/user/user",
@@ -87,6 +87,51 @@
             }
             
         }
+        ,{
+            "path" : "pages/share-group/share-group",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "发布群",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/find-group/find-group",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "悬赏群",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/task/task",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "发布任务",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/advertise/advertise",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "分享",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/trade/trade",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "交易",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"tabBar": {
 		"color": "#999",
@@ -128,8 +173,8 @@
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "群享",
-		"navigationStyle": "custom",
-		"navigationBarBackgroundColor": "#fff",
+		// "navigationStyle": "custom",
+		"navigationBarBackgroundColor": "#389cff",
 		"backgroundColor": "#F8F8F8"
 	},
 	"uniIdRouter": {}
