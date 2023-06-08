@@ -43,12 +43,15 @@
 		</view>
 	</view>
 	
+	<prompt ref="prompt" :dialogVisible="dialogVisible" @onConfirm="onConfirm" @onCancel="onCancel" title="标题参数" :text="promptText"></prompt
+	
 	<!-- <u-modal :value="dialogInfo.show" :title="dialogInfo.title" :content='dialogInfo.content'></u-modal> -->
 </template>
 
 <script setup lang="ts">
 	import { reactive, ref } from "vue";
 	import { onLoad, onShow } from '@dcloudio/uni-app'
+	import { dialog-join }from 'components/dialog-join/dialog-join';
 	
 	const searchStr = ref("")
 	const swiperList = reactive([{
