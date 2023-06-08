@@ -1,57 +1,58 @@
 
  <template>
-	<view class="top">
-		<u-swiper
-				:list="swiperList"
-				keyName="image"
-				showTitle
-				:autoplay="true"
-				circular
-		></u-swiper>
-		
-		<u-search placeholder="输入关键字搜索群" v-model="searchStr" inputAlign="center" @click="goSearchPage()" :showAction="false"></u-search>
-	</view>
-	<u-sticky>
-		<view class="center">
-			<u-grid :border="false" col="5">
-				<u-grid-item
-						v-for="(listItem,listIndex) in centerBtnList"
-						:key="listIndex"
-						@click="goEnterPage(listItem.id)"
-				>
-					<u-image width="50rpx" height="50rpx" :src="listItem.image"></u-image>
-					<text class="grid-text">{{listItem.title}}</text>
-				</u-grid-item>
-			</u-grid>
-		</view>
-	</u-sticky>
 	<view>
-		<view class="group-content" v-for="(item, itemIdx) in groupList">
-			<view class="group-item">
-				<u-image width="100rpx" height="100rpx" :src="item.image"></u-image>
-				<view class="group-text">
-					<text>{{item.name}}</text>
-					<view class="item-text">
-						<text>{{item.member}}</text>
-						<text>{{item.location}}</text>
-						<text>{{item.source}}</text>
+		<view class="top">
+			<u-swiper
+					:list="swiperList"
+					keyName="image"
+					showTitle
+					:autoplay="true"
+					circular
+			></u-swiper>
+			
+			<u-search placeholder="输入关键字搜索群" v-model="searchStr" inputAlign="center" @click="goSearchPage()" :showAction="false"></u-search>
+		</view>
+		<u-sticky>
+			<view class="center">
+				<u-grid :border="false" col="5">
+					<u-grid-item
+							v-for="(listItem,listIndex) in centerBtnList"
+							:key="listIndex"
+							@click="goEnterPage(listItem.id)"
+					>
+						<u-image width="50rpx" height="50rpx" :src="listItem.image"></u-image>
+						<text class="grid-text">{{listItem.title}}</text>
+					</u-grid-item>
+				</u-grid>
+			</view>
+		</u-sticky>
+		<view>
+			<view class="group-content" v-for="(item, itemIdx) in groupList">
+				<view class="group-item">
+					<u-image width="100rpx" height="100rpx" :src="item.image"></u-image>
+					<view class="group-text">
+						<text>{{item.name}}</text>
+						<view class="item-text">
+							<text>{{item.member}}</text>
+							<text>{{item.location}}</text>
+							<text>{{item.source}}</text>
+						</view>
 					</view>
+					
+					<view class="group-btn"><u-button :type="item.shareType === 1 ? 'primary' : 'success'" size="mini" @click="goGroupPage(item.shareType)">{{item.btnStr}}</u-button></view>
 				</view>
-				
-				<view class="group-btn"><u-button :type="item.shareType === 1 ? 'primary' : 'success'" size="mini" @click="goGroupPage(item.shareType)">{{item.btnStr}}</u-button></view>
 			</view>
 		</view>
+		<view>
+			<u-modal v-model="dialogInfo.show" showCancelButton="true" title="付费进群" :content="dialogInfo.content" :zoom="false"></u-modal>
+		</view>
+		
 	</view>
-	
-	<prompt ref="prompt" :dialogVisible="dialogVisible" @onConfirm="onConfirm" @onCancel="onCancel" title="标题参数" :text="promptText"></prompt
-	
-	<!-- <u-modal :value="dialogInfo.show" :title="dialogInfo.title" :content='dialogInfo.content'></u-modal> -->
 </template>
 
 <script setup lang="ts">
 	import { reactive, ref } from "vue";
 	import { onLoad, onShow } from '@dcloudio/uni-app'
-	import { dialog-join }from 'components/dialog-join/dialog-join';
 	
 	const searchStr = ref("")
 	const swiperList = reactive([{
@@ -250,7 +251,6 @@
 			btnStr: '加群',
 		},
 	])
-	
 	const dialogInfo = reactive({
 		show : false,
 		title: "",
@@ -282,10 +282,8 @@
 	
 	const goGroupPage = (shareType : number) => {
 		if (shareType === 1) {
-			uni.showToast({
-				title: "花费50积分获取群主微信",
-				icon: 'none'
-			})
+			dialogInfo.show = true
+			dialogInfo.content = "花费50积分获取群主微信"
 		} else if (shareType === 2) {
 			uni.navigateTo({
 				url: '/pages/find-group/find-group'
@@ -317,6 +315,14 @@
 		uni.navigateTo({
 			url
 		})
+	}
+	
+	const dialogConfirm = () => {
+		
+	}
+	
+	const dialogClose = () => {
+		
 	}
 	
 </script>
