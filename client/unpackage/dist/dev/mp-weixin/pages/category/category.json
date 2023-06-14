@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "分类",
-  "enablePullDownRefresh": false,
-  "usingComponents": {
-    "comic-box": "../../components/comic-box/comic-box",
-    "u-loadmore": "../../uni_modules/vk-uview-ui/components/u-loadmore/u-loadmore"
-  }
-}

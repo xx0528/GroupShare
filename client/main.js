@@ -1,5 +1,5 @@
 import App from './App'
-import uView from './uni_modules/vk-uview-ui';
+import uView from './uni_modules/uview-plus';
 // #ifndef VUE3
 import Vue from 'vue'
 Vue.config.productionTip = false

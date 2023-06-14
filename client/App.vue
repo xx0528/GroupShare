@@ -36,7 +36,7 @@
 
 <style lang="scss">
 	/*每个页面公共css */
-	@import "./uni_modules/vk-uview-ui/index.scss";
+	@import "./uni_modules/uview-plus/index.scss";
 	// 引入阿里矢量素材图标库-symbol，多色
 	@import "./static/iconfont/iconfont-weapp-icon.css";
 </style>
