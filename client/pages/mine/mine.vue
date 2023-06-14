@@ -2,13 +2,13 @@
 	<view class="user">
 		<view class="user-header" @click="handleUserOption('/pages/user/user-Info')">
 			<!-- <u-avatar :src="userInfo.avatar?userInfo.avatar:'/static/image/default-avatar.png'" shape="circle" size="large"></u-avatar> -->
-			<u-avatar :src="userInfo.avatar" shape="circle" size="large"></u-avatar>
+			<u-avatar :src="userInfo.avatar"></u-avatar>
 			<view class="user-name">{{userInfo.username?userInfo.username:'登录后查看更多精彩'}}</view>
 		</view>
 		<view class="user-options">
 			<u-cell-group v-for="(item, idx) in cellList" >
-				<u-cell-item :title="item.name" :icon="item.img" size="large"
-					@click="onClickCell(item.id)"></u-cell-item>
+				<u-cell :title="item.name" :icon="item.img" size="large"
+					@click="onClickCell(item.id)" value="进入" isLink></u-cell>
 			</u-cell-group>
 		</view>
 
@@ -72,9 +72,9 @@
 	])
 	onLoad(() => {
 
-		// #ifdef MP-WEIXIN
-		if(wxIsLogin()) return
-		// #endif
+		// // #ifdef MP-WEIXIN
+		// if(wxIsLogin()) return
+		// // #endif
 		userInfo.value.username = userStore.userInfo.username
 		userInfo.value.avatar = userStore.userInfo.avatar
 
@@ -136,7 +136,7 @@
 <style lang="scss" scoped>
 	.user-header {
 		width: 100%;
-		height: 180rpx;
+		height: 130rpx;
 		background-color: $uni-main-color;
 		border-radius: 0 0 40rpx 40rpx;
 		display: flex;

@@ -39,12 +39,15 @@
 						</view>
 					</view>
 					
-					<view class="group-btn"><u-button :type="item.shareType === 1 ? 'primary' : 'success'" size="mini" @click="goGroupPage(item.shareType)">{{item.btnStr}}</u-button></view>
+					<view class="group-btn"><u-button :type="item.shareType === 1 ? 'primary' : 'success'" size="middle" @click="goGroupPage(item.shareType)">{{item.btnStr}}</u-button></view>
 				</view>
 			</view>
 		</view>
 		<view>
-			<u-modal v-model="dialogInfo.show" showCancelButton="true" title="付费进群" :content="dialogInfo.content" :zoom="false"></u-modal>
+			<u-modal :show="dialogInfo.show" :showCancelButton="true"
+			 title="付费进群" :content="dialogInfo.content" :zoom="false"
+			 @confirm="joinGroup" @cancel="closeDialog"></u-modal>
+			<!-- <u-modal :show="dialogInfo.show" title="付费进群" :content='dialogInfo.content' :zoom="true"></u-modal> -->
 		</view>
 		
 	</view>
@@ -317,22 +320,30 @@
 		})
 	}
 	
-	const dialogConfirm = () => {
+	const joinGroup = () => {
+		dialogInfo.show = false
 		
 	}
 	
-	const dialogClose = () => {
-		
+	const closeDialog = () => {
+		dialogInfo.show = false
 	}
 	
 </script>
 
 <style lang="scss" scoped>
 	.top {
-		padding: 8rpx 8rpx;
+		padding: 0rpx 4rpx;
 		.u-search {
 			padding: 25rpx 25rpx 0rpx;
 		}
+	}
+	.center {
+		background-color: $uni-bg-color;
+		.grid-text {
+			font-size: 28rpx;
+		}
+		padding: 20rpx 0rpx 20rpx;
 	}
 	.group-content {
 		display: flex;
@@ -341,12 +352,14 @@
 			width: 100%;
 			justify-content: flex-start;
 			align-items: center;
+			padding: 10rpx 20rpx 10rpx;
 			border-top: 3rpx solid $uni-main-color;
 			.u-image{
 				margin: 20rpx;
 			}
 			.group-text {
 				display: flex;
+				margin-left: 20rpx;
 				flex-direction: column;
 				text{
 					font-weight: bold;
