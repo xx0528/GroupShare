@@ -10,7 +10,7 @@
 					circular
 			></u-swiper>
 			
-			<u-search placeholder="输入关键字搜索群" v-model="searchStr" inputAlign="center" @click="goSearchPage()" :showAction="false"></u-search>
+			<u-search placeholder="输入关键字搜索群" v-model="searchStr" inputAlign="center" :disabled="true" @click="goSearchPage()" :showAction="false"></u-search>
 		</view>
 		<u-sticky>
 			<view class="center">
@@ -278,6 +278,7 @@
 	}
 	
 	const goSearchPage = () =>{
+		console.log("goSearchPage ---")
 		uni.navigateTo({
 			url:'/pages/search/search'
 		})
