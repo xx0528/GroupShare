@@ -1,615 +1,582 @@
-
- <template>
-	<view>
-		
-		 <u--form labelPosition="left" label-width="140rpx" :model="groupInfo" :rules="rules" ref="form1">
-			<u-form-item label="群ID" prop="id" borderBottom>
-				<u--input v-model="groupInfo.id" border="none" placeholder="输入群ID"></u--input>
-			</u-form-item>
-			<u-form-item label="群名字" prop="name" borderBottom>
-				<u--input v-model="groupInfo.name" border="none" placeholder="输入群名字"></u--input>
-			</u-form-item>
-			<u-form-item label="群人数" prop="num" borderBottom ref="item2" >
-				<u-radio-group v-model="groupInfo.num">
-					<u-radio
-						:customStyle="{marginRight: '16px'}"
-						v-for="(item, index) in textCfg.groupNum"
-						:key="index"
-						shape="square"
-						:label="item.name"
-						:name="item.name"
-					>
-					</u-radio>
-				</u-radio-group>
-			</u-form-item>
-			<u-form-item label="群分类" prop="category" borderBottom ref="item3" >
-				<u-checkbox-group v-model="groupInfo.category" shape="square" @change="change" >
-					<u-checkbox
-						:customStyle="{marginRight: '16px'}"
-						v-for="(item, index) in textCfg.groupCategory"
-						:key="index"
-						:label="item.name"
-						:name="item.name"
-					>
-					</u-checkbox>
-				</u-checkbox-group>
-			</u-form-item>
-			<u-form-item label="组织" prop="org" borderBottom>
-				<u--input v-model="groupInfo.org" border="none" placeholder="输入学校/公司/姓氏名称"></u--input>
-			</u-form-item>
-			<u-form-item label="群位置" prop="location" borderBottom>
-				<u--input v-model="groupInfo.location" border="none"></u--input>
-			</u-form-item>
-			<u-form-item label="群标签" prop="tag" borderBottom>
-				<u--input v-model="groupInfo.tag" border="none"></u--input>
-			</u-form-item>
-			<u-form-item label="群平台" prop="platform" borderBottom>
-				<u--input v-model="groupInfo.platform" border="none"></u--input>
-			</u-form-item>
-			<u-form-item label="群简介" prop="desc" borderBottom>
-				<u--input v-model="groupInfo.desc" border="none"></u--input>
-			</u-form-item>
-			<u-form-item label="群截图" prop="screenshot" borderBottom>
-				<u--input v-model="groupInfo.screenshot" border="none"></u--input>
-			</u-form-item>
-			<u-form-item label="群二维码" prop="qrCode" borderBottom>
-				<u--input v-model="groupInfo.qrCode" border="none"></u--input>
-			</u-form-item>
-			<u-form-item label="共享类型" prop="shareType" borderBottom>
-				<u--input v-model="groupInfo.shareType" border="none"></u--input>
-			</u-form-item>
-			<u-form-item label="群主微信" prop="ownerId" borderBottom>
-				<u--input v-model="groupInfo.ownerId" border="none"></u--input>
-			</u-form-item>
-			<u-form-item label="客服微信" prop="service" borderBottom>
-				<u--input v-model="groupInfo.service" border="none"></u--input>
-			</u-form-item>
+<template>
+	<view class="container">
+		<uni-section title="基本信息" type="line">
+			<view class="example">
+				<uni-forms ref="groupForm" :rules="groupRules" :model="groupFormData" labelWidth="80px">
+					<uni-forms-item label="群ID" required name="id">
+						<uni-easyinput v-model="groupFormData.id" placeholder="请输入群ID" />
+					</uni-forms-item>
+					<uni-forms-item label="群名" required name="name">
+						<uni-easyinput v-model="groupFormData.name" placeholder="请输入群名" />
+					</uni-forms-item>
+					
+					<uni-forms-item label="群人数" required name="num">
+						<uni-data-checkbox v-model="groupFormData.num" mode="tag" :localdata="groupLocaldata.textNum" />
+					</uni-forms-item>
+				
+					<uni-forms-item label="群分类" required name="category">
+						<uni-data-checkbox v-model="groupFormData.category" multiple mode="tag" :localdata="groupLocaldata.textCategory" />
+					</uni-forms-item>
+					
+					<uni-forms-item label="组织" required name="org">
+						<uni-easyinput v-model="groupFormData.org" placeholder="输入学校/公司/姓氏/名称" />
+					</uni-forms-item>
+									
+					<uni-forms-item label="群位置" name="location">
+						<uni-data-picker v-model="groupFormData.location" :localdata="groupLocaldata.textLocation" popup-title="选择城市">
+						</uni-data-picker>
+					</uni-forms-item>
+					
+					<uni-forms-item label="群标签" required name="tags" class="item-uni-tag">
+						<view>
+							<view v-for="(item, index) in groupLocaldata.textTags">
+								<uni-tag :circle="true" :inverted="true" :text="item.text" type="primary" @click="setTagType"/>
+							</view>
+						</view>
+					</uni-forms-item>
+					
+					<uni-forms-item label="群平台" required name="platform">
+						<uni-data-checkbox v-model="groupFormData.platform" mode="tag" :localdata="groupLocaldata.textPlatform" />
+					</uni-forms-item>
+					
+					<uni-forms-item label="群简介">
+						<uni-easyinput type="textarea" v-model="groupFormData.introduction" placeholder="请输入群介绍" />
+					</uni-forms-item>
+			</uni-forms>
+			<button type="primary" @click="submit('groupForm')">提交</button>
 			
-	<!-- 		<u-form-item
-					label="性别"
-					prop="userInfo.sex"
-					borderBottom
-					@click="showSex = true; hideKeyboard()"
-					ref="item1"
-			>
-				<u--input
-					v-model="model1.userInfo.sex"
-					disabled
-					disabledColor="#ffffff"
-					placeholder="请选择性别"
-					border="none"
-				></u--input>
-				<template #right>
-					<u-icon
-						name="arrow-right"
-					></u-icon>
-				</template>
-			</u-form-item> -->
-		</u--form>
-		<u-action-sheet
-				:show="showSex"
-				:actions="actions"
-				title="请选择性别"
-				description="如果选择保密会报错"
-				@close="showSex = false"
-				@select="sexSelect"
-		>
-		</u-action-sheet>
-		
-		<view class="u-page">
-			<u-navbar
-				title="表单"
-				@leftClick="navigateBack"
-				safeAreaInsetTop
-				fixed
-				placeholder
-			></u-navbar>
-			<view class="u-demo-block">
-				<text class="u-demo-block__title">基础使用</text>
-				<view class="u-demo-block__content">
-					<!-- 注意，如果需要兼容微信小程序，最好通过setRules方法设置rules规则 -->
-					<u--form
-						labelPosition="left"
-						:model="model1"
-						ref="form1"
-					>
-						<u-form-item
-							label="姓名"
-							prop="userInfo.name"
-							borderBottom
-							ref="item1"
-						>
-							<u--input
-								v-model="model1.userInfo.name"
-								border="none"
-								placeholder="姓名,只能为中文"
-							></u--input>
-						</u-form-item>
-						<u-form-item
-							label="性别"
-							prop="userInfo.sex"
-							borderBottom
-							@click="showSex = true; hideKeyboard()"
-							ref="item1"
-						>
-							<u--input
-								v-model="model1.userInfo.sex"
-								disabled
-								disabledColor="#ffffff"
-								placeholder="请选择性别"
-								border="none"
-							></u--input>
-							<u-icon
-								slot="right"
-								name="arrow-right"
-							></u-icon>
-						</u-form-item>
-						<u-form-item
-							label="水果"
-							prop="radiovalue1"
-							borderBottom
-							ref="item2"
-						>
-							<u-radio-group v-model="model1.radiovalue1">
-								<u-radio
-									:customStyle="{marginRight: '16px'}"
-									v-for="(item, index) in radiolist1"
-									:key="index"
-									:label="item.name"
-									:name="item.name"
-								>
-								</u-radio>
-							</u-radio-group>
-						</u-form-item>
-						<u-form-item
-							label="兴趣爱好"
-							prop="checkboxValue1"
-							borderBottom
-							labelWidth="80"
-							ref="item3"
-						>
-							<u-checkbox-group
-								v-model="model1.checkboxValue1"
-								shape="square"
-								@change="change"
-							>
-								<u-checkbox
-									:customStyle="{marginRight: '16px'}"
-									v-for="(item, index) in checkboxList1"
-									:key="index"
-									:label="item.name"
-									:name="item.name"
-								>
-								</u-checkbox>
-							</u-checkbox-group>
-						</u-form-item>
-						<u-form-item
-							label="简介"
-							prop="intro"
-							borderBottom
-							ref="item3"
-						>
-							<u--textarea
-								placeholder="不低于3个字"
-								v-model="model1.intro"
-								count
-							></u--textarea>
-						</u-form-item>
-						<u-form-item
-							label="住店时间"
-							prop="hotel"
-							labelWidth="80"
-							borderBottom
-							@click="showCalendar = true; hideKeyboard()"
-						>
-							<u--input
-								v-model="model1.hotel"
-								disabled
-								disabledColor="#ffffff"
-								placeholder="请选择住店和离店时间"
-								border="none"
-							></u--input>
-							<u-icon
-								slot="right"
-								name="arrow-right"
-							></u-icon>
-						</u-form-item>
-						<u-form-item
-							label="验证码"
-							prop="code"
-							labelWidth="80"
-							borderBottom
-						>
-							<u--input
-								v-model="model1.code"
-								border="none"
-								placeholder="请填写验证码"
-							></u--input>
-							<u-button
-								slot="right"
-								@tap="getCode"
-								:text="tips"
-								type="success"
-								size="mini"
-								:disabled="disabled1"
-							></u-button>
-						</u-form-item>
-						<u-form-item
-							label="生日"
-							prop="userInfo.birthday"
-							borderBottom
-							@click="showBirthday = true; hideKeyboard()"
-							ref="item1"
-						>
-							<u--input
-								v-model="model1.userInfo.birthday"
-								disabled
-								disabledColor="#ffffff"
-								placeholder="请选择生日"
-								border="none"
-							></u--input>
-							<u-icon
-								slot="right"
-								name="arrow-right"
-							></u-icon>
-						</u-form-item>
-					</u--form>
-					<u-button
-						type="primary"
-						text="提交"
-						customStyle="margin-top: 50px"
-						@click="submit"
-					></u-button>
-					<u-button
-						type="error"
-						text="重置"
-						customStyle="margin-top: 10px"
-						@click="reset"
-					></u-button>
-					<u-action-sheet
-						:show="showSex"
-						:actions="actions"
-						title="请选择性别"
-						description="如果选择保密会报错"
-						@close="showSex = false"
-						@select="sexSelect"
-					>
-					</u-action-sheet>
-					<!-- <u-calendar
-						:show="showCalendar"
-						mode="range"
-						@confirm="calendarConfirm"
-						@close="calendarClose"
-						startText="住店"
-						endText="离店"
-						confirmDisabledText="请选择离店日期"
-						:formatter="formatter"
-					></u-calendar> -->
-					<u-code
-						ref="uCode"
-						@change="codeChange"
-						seconds="20"
-						@start="disabled1 = true"
-						@end="disabled1 = false"
-					></u-code>
-					<!-- <u-datetime-picker
-						:show="showBirthday"
-						:value="birthday"
-						mode="date"
-						closeOnClickOverlay
-						@confirm="birthdayConfirm"
-						@cancel="birthdayClose"
-						@close="birthdayClose"
-					></u-datetime-picker> -->
+			<!-- 基础用法，不包含校验规则 -->
+			<uni-forms ref="baseForm" :model="baseFormData" labelWidth="80px">
+				<uni-forms-item label="群ID" required>
+					<uni-easyinput v-model="baseFormData.name" placeholder="请输入群ID" />
+				</uni-forms-item>
+				<uni-forms-item label="年龄" required>
+					<uni-easyinput v-model="baseFormData.age" placeholder="请输入年龄" />
+				</uni-forms-item>
+				<uni-forms-item label="性别" required>
+					<uni-data-checkbox v-model="baseFormData.sex" :localdata="sexs" />
+				</uni-forms-item>
+				<uni-forms-item label="兴趣爱好" required>
+					<uni-data-checkbox v-model="baseFormData.hobby" multiple :localdata="hobbys" />
+				</uni-forms-item>
+				<uni-forms-item label="自我介绍">
+					<uni-easyinput type="textarea" v-model="baseFormData.introduction" placeholder="请输入自我介绍" />
+					</uni-forms-item>
+					<uni-forms-item label="日期时间">
+						<uni-datetime-picker type="datetime" return-type="timestamp"
+							v-model="baseFormData.datetimesingle" />
+					</uni-forms-item>
+					<uni-forms-item label="选择城市">
+						<uni-data-picker v-model="baseFormData.city" :localdata="cityData" popup-title="选择城市">
+						</uni-data-picker>
+					</uni-forms-item>
+
+					<uni-forms-item label="选择技能">
+						<uni-data-select v-model="baseFormData.skills" :localdata="skillsRange" >
+						</uni-data-select>
+					</uni-forms-item>
+				</uni-forms>
+			</view>
+		</uni-section>
+
+		<uni-section title="对齐方式" type="line">
+			<view class="example">
+				<view class="segmented-control">
+					<uni-segmented-control :current="current" :values="items" @clickItem="onClickItem"
+						styleType="button">
+					</uni-segmented-control>
+				</view>
+				<!-- 展示不同的排列方式 -->
+				<uni-forms ref="baseForm" :modelValue="alignmentFormData" :label-position="alignment">
+					<uni-forms-item label="姓名" required>
+						<uni-easyinput v-model="baseFormData.name" placeholder="请输入姓名" />
+					</uni-forms-item>
+					<uni-forms-item label="年龄" required>
+						<uni-easyinput v-model="baseFormData.age" placeholder="请输入年龄" />
+					</uni-forms-item>
+				</uni-forms>
+			</view>
+		</uni-section>
+
+		<uni-section title="表单校验" type="line">
+			<view class="example">
+				<!-- 基础表单校验 -->
+				<uni-forms ref="valiForm" :rules="rules" :model="valiFormData" labelWidth="80px">
+					<uni-forms-item label="姓名" required name="name">
+						<uni-easyinput v-model="valiFormData.name" placeholder="请输入姓名" />
+					</uni-forms-item>
+					<uni-forms-item label="年龄" required name="age">
+						<uni-easyinput v-model="valiFormData.age" placeholder="请输入年龄" />
+					</uni-forms-item>
+					<uni-forms-item label="自我介绍">
+						<uni-easyinput type="textarea" v-model="valiFormData.introduction" placeholder="请输入自我介绍" />
+					</uni-forms-item>
+				</uni-forms>
+				<button type="primary" @click="submit('valiForm')">提交</button>
+			</view>
+		</uni-section>
+
+		<uni-section title="自定义校验规则" type="line">
+			<view class="example">
+				<!-- 自定义表单校验 -->
+				<uni-forms ref="customForm" :rules="customRules" labelWidth="80px" :modelValue="customFormData">
+					<uni-forms-item label="姓名" required name="name">
+						<uni-easyinput v-model="customFormData.name" placeholder="请输入姓名" />
+					</uni-forms-item>
+					<uni-forms-item label="年龄" required name="age">
+						<uni-easyinput v-model="customFormData.age" placeholder="请输入年龄" />
+					</uni-forms-item>
+					<uni-forms-item label="兴趣爱好" required name="hobby">
+						<uni-data-checkbox v-model="customFormData.hobby" multiple :localdata="hobbys" />
+					</uni-forms-item>
+				</uni-forms>
+				<button type="primary" @click="submit('customForm')">提交</button>
+			</view>
+		</uni-section>
+
+
+		<uni-section title="动态表单" type="line">
+			<view class="example">
+				<!-- 动态表单校验 -->
+				<uni-forms ref="dynamicForm" :rules="dynamicRules" :model="dynamicFormData" labelWidth="80px">
+					<uni-forms-item label="邮箱" required name="email">
+						<uni-easyinput v-model="dynamicFormData.email" placeholder="请输入姓名" />
+					</uni-forms-item>
+					<uni-forms-item v-for="(item,index) in dynamicFormData.domains" :key="item.id"
+						:label="item.label+' '+index" required :rules="item.rules" :name="['domains',index,'value']">
+						<view class="form-item">
+							<uni-easyinput v-model="dynamicFormData.domains[index].value" placeholder="请输入域名" />
+							<button class="button" size="mini" type="default" @click="del(item.id)">删除</button>
+						</view>
+					</uni-forms-item>
+				</uni-forms>
+				<view class="button-group">
+					<button type="primary" size="mini" @click="add">新增域名</button>
+					<button type="primary" size="mini" @click="submit('dynamicForm')">提交</button>
 				</view>
 			</view>
-		</view>
+		</uni-section>
 	</view>
 </template>
 
 <script setup lang="ts">
-	import { reactive, ref } from "vue"
-	
-	const groupInfo = reactive({
-		id : "",		//群id
-		name : "",		//群名字
-		num : "",		//群人数
-		category : 0,	//分类
-		org : "",		//组织
-		location : "",	//群位置
-		tag : "",		//群标签
-		platform : "",	//群平台
-		desc : "",		//群简介
-		screenshot : "",//群截图
-		qrCode : "",	//二维码
-		shareType : "",	//共享类型
-		ownerId : "",	//群主或管理员联系方式
-		service : "",	//客服联系方式
+import { reactive, ref } from "vue"
+
+	const groupFormData = reactive({
+		id: "",		//群id
+		name: "",		//群名字
+		num: [0],		//群人数
+		category: [0],	//分类
+		org: "",		//组织
+		location: "",	//群位置
+		tag: [0],		//群标签
+		platform: "",	//群平台
+		introduction: "",		//群简介
+		screenshot: "",//群截图
+		qrCode: "",	//二维码
+		shareType: "",	//共享类型
+		ownerId: "",	//群主或管理员联系方式
+		service: "",	//客服联系方式
 	})
 	
-	const textCfg = reactive({
-		groupNum : [
-			{
-				name: '100人群',
-				disabled: false
+	const groupRules = reactive({
+			name: {
+				rules: [{
+					required: true,
+					errorMessage: '姓名不能为空'
+				}]
 			},
-			{
-				name: '300人群',
-				disabled: false
+			age: {
+				rules: [{
+					required: true,
+					errorMessage: '年龄不能为空'
+				}]
 			},
+			hobby: {
+				rules: [{
+						format: 'array'
+					},
+					{
+						validateFunction: function(rule, value, data, callback) {
+							if (value.length < 2) {
+								callback('请至少勾选两个兴趣爱好')
+							}
+							return true
+						}
+					}
+				]
+			}
+		})
+	const groupLocaldata = reactive({
+		textNum : [
 			{
-				name: '500人群',
-				disabled: false
-			},
-			{
-				name: '1000人群',
-				disabled: false
+				text: '100人群',
+				value: 1
+			}, {
+				text: '300人群',
+				value: 2
+			}, {
+				text: '500人群',
+				value: 3
+			}, {
+				text: '1000人群',
+				value: 4
 			}
 		],
-		groupCategory : [
+		textCategory: [
 			{
-				name: '宗亲群',
-				disabled: false
+				text: '宗亲群',
+				value: 1
 			},
 			{
-				name: '校友群',
-				disabled: false
+				text: '校友群',
+				value: 2
 			},
 			{
-				name: '同事群',
-				disabled: false
+				text: '同事群',
+				value: 3
 			},
 			{
-				name: '客户群',
-				disabled: false
+				text: '客户群',
+				value: 4
 			},
 			{
-				name: '老乡群',
-				disabled: false
+				text: '老乡群',
+				value: 5
 			},
 			{
-				name: '其他群',
-				disabled: false
+				text: '其他群',
+				value: 6
+			}
+		],
+		textLocation : [
+			{
+				text: "广东省",
+				value: "1-0",
+				children: [{
+						text: "深圳市",
+						value: "1-1"
+					},
+					{
+						text: "广州市",
+						value: "1-2"
+					}
+				]
+			},
+			{
+				text: "湖南省",
+				value: "2-0",
+				children: [{
+						text: "长沙市",
+						value: "2-1"
+					},
+					{
+						text: "株洲市",
+						value: "2-2"
+					}
+				]
+			},
+			{
+				text: "四川省",
+				value: "3-0",
+				children: [{
+						text: "成都市",
+						value: "3-1"
+					},
+					{
+						text: "绵阳市",
+						value: "3-2"
+					}
+				]
+			},
+			{
+				text: "湖北省",
+				value: "3-0",
+				disable: true
+			}
+		],
+		textTags: [
+			{
+				text: '电商',
+				value: 1
+			},
+			{
+				text: '美妆',
+				value: 2
+			},
+			{
+				text: '同学',
+				value: 3
+			},
+			{
+				text: '宝妈',
+				value: 4
+			},
+			{
+				text: '同事',
+				value: 5
+			},
+			{
+				text: '化妆品',
+				value: 6
+			}
+		],
+		textPlatform : [
+			{
+				text: '微信群',
+				value: 1
+			}, {
+				text: 'QQ群',
+				value: 2
+			}, {
+				text: '抖音群',
+				value: 3
+			}, {
+				text: '快手群',
+				value: 4
+			}, {
+				text: 'WhatsApp群',
+				value: 5
+			}, {
+				text: 'Line群',
+				value: 6
+			}, {
+				text: 'TG群',
+				value: 7
 			}
 		],
 	})
-	
-	const fileList1 = reactive([])
-	const disabled1 = ref(false)
-	const tips = ref('')
-	const value = ref('')
-	const showCalendar = ref(false)
-	const showBirthday = ref(false)
-	const model1 = reactive({
-		userInfo: {
-			name: '楼兰',
-			sex: '',
-			birthday: ''
-		},
-		radiovalue1: '苹果',
-		checkboxValue1: [],
-		intro: '',
-		code: ''
+
+// 基础表单数据
+	const baseFormData = reactive({
+		name: '',
+		age: '',
+		introduction: '',
+		sex: 2,
+		hobby: [5],
+		datetimesingle: 1627529992399,
+		city: '',
+		skills: 0
 	})
-	const showSex = ref(false)
-	const birthday = reactive(Number(new Date()))
-	const actions = reactive([{
-			name: '男',
+	const cityData = reactive([{
+		text: "北京",
+		value: "10001",
+	}, {
+		text: "上海",
+		value: "10002",
+	}, {
+		text: "深圳",
+		value: "10004",
+	}])
+	const skillsRange = reactive([{
+			value: 0,
+			text: "编程"
 		},
 		{
-			name: '女',
+			value: 1,
+			text: "绘画"
 		},
 		{
-			name: '保密',
+			value: 2,
+			text: "运动"
 		},
 	])
+	// 表单数据
+	const alignmentFormData = reactive({
+		name: '',
+		age: '',
+	})
+	// 单选数据源
+	const sexs = reactive([{
+		text: '男',
+		value: 0
+	}, {
+		text: '女',
+		value: 1
+	}, {
+		text: '保密',
+		value: 2
+	}])
+	// 多选数据源
+	const hobbys = reactive([{
+		text: '跑步',
+		value: 0
+	}, {
+		text: '游泳',
+		value: 1
+	}, {
+		text: '绘画',
+		value: 2
+	}, {
+		text: '足球',
+		value: 3
+	}, {
+		text: '篮球',
+		value: 4
+	}, {
+		text: '其他',
+		value: 5
+	}])
+	// 分段器数据
+	const current = ref(0)
+	const items = reactive( ['左对齐', '顶部对齐'])
+	// 校验表单数据
+	const valiFormData = reactive({
+		name: '',
+		age: '',
+		introduction: '',
+	})
+	// 校验规则
 	const rules = reactive({
-		'userInfo.name': [{
-			type: 'string',
-			required: true,
-			message: '请填写姓名',
-			trigger: ['blur', 'change']
-		}, {
-			// 此为同步验证，可以直接返回true或者false，如果是异步验证，稍微不同，见下方说明
-			validator: (rule, value, callback) => {
-				// 调用uView自带的js验证规则，详见：https://www.uviewui.com/js/test.html
-				return uni.$u.test.chinese(value);
-			},
-			message: "姓名必须为中文",
-			// 触发器可以同时用blur和change，二者之间用英文逗号隔开
-			trigger: ["change", "blur"],
-		}],
-		code: {
-			type: 'string',
-			required: true,
-			len: 4,
-			message: '请填写4位验证码',
-			trigger: ['blur']
+		name: {
+			rules: [{
+				required: true,
+				errorMessage: '姓名不能为空'
+			}]
 		},
-		'userInfo.sex': {
-			type: 'string',
-			max: 1,
-			required: true,
-			message: '请选择男或女',
-			trigger: ['blur', 'change']
-		},
-		radiovalue1: {
-			type: 'string',
-			min: 1,
-			max: 2,
-			message: '橙子有毒',
-			trigger: ['change']
-		},
-		checkboxValue1: {
-			type: 'array',
-			min: 2,
-			required: true,
-			message: '不能太宅，至少选两项',
-			trigger: ['change']
-		},
-		intro: {
-			type: 'string',
-			min: 3,
-			required: true,
-			message: '不低于3个字',
-			trigger: ['change']
-		},
-		hotel: {
-			type: 'string',
-			min: 2,
-			required: true,
-			message: '请选择住店时间',
-			trigger: ['change']
-		},
-		'userInfo.birthday': {
-			type: 'string',
-			required: true,
-			message: '请选择生日',
-			trigger: ['change']
-		},
+		age: {
+			rules: [{
+				required: true,
+				errorMessage: '年龄不能为空'
+			}, {
+				format: 'number',
+				errorMessage: '年龄只能输入数字'
+			}]
+		}
 	})
-	const radiolist1 = reactive([{
-			name: '苹果',
-			disabled: false
+	// 自定义表单数据
+	const customFormData = reactive({
+		name: '',
+		age: '',
+		hobby: []
+	})
+	// 自定义表单校验规则
+	const customRules = reactive({
+		name: {
+			rules: [{
+				required: true,
+				errorMessage: '姓名不能为空'
+			}]
 		},
-		{
-			name: '香蕉',
-			disabled: false
+		age: {
+			rules: [{
+				required: true,
+				errorMessage: '年龄不能为空'
+			}]
 		},
-		{
-			name: '毒橙子',
-			disabled: false
+		hobby: {
+			rules: [{
+					format: 'array'
+				},
+				{
+					validateFunction: function(rule, value, data, callback) {
+						if (value.length < 2) {
+							callback('请至少勾选两个兴趣爱好')
+						}
+						return true
+					}
+				}
+			]
 		}
-	])
-	const checkboxList1 = reactive([{
-			name: '羽毛球',
-			disabled: false
-		},
-		{
-			name: '跑步',
-			disabled: false
-		},
-		{
-			name: '爬山',
-			disabled: false
-		}
-	])
-
 	
-	const afterRead = (event) => {
-		fileList1.push({
-			url: event.file,
-			status: 'uploading',
-			message: '上传中'
+	})
+	const dynamicFormData = reactive({
+		email: '',
+		domains: []
+	})
+	const dynamicLists = reactive([])
+	const dynamicRules = reactive({
+		email: {
+			rules: [{
+				required: true,
+				errorMessage: '域名不能为空'
+			}, {
+				format: 'email',
+				errorMessage: '域名格式错误'
+			}]
+		}
+	})
+	
+	const setTagType = (e) => {
+		console.log("setTagType---")
+		console.log(e)
+		// let types = ["default", "primary", "success", "warning", "error"];
+		// let index = types.indexOf(this.type);
+		// types.splice(index, 1);
+		// let randomIndex = Math.floor(Math.random() * 4);
+		// this.type = types[randomIndex];
+	}
+	
+	const onClickItem = (e) => {
+		console.log(e);
+		this.current = e.currentIndex
+	}
+	const add = () => {
+		this.dynamicFormData.domains.push({
+			label: '域名',
+			value: '',
+			rules: [{
+				'required': true,
+				errorMessage: '域名项必填'
+			}],
+			id: Date.now()
 		})
 	}
-
-	const groupChange = (n) => {
-		// console.log('groupChange', n);
+	const del = (id) => {
+		let index = this.dynamicLists.findIndex(v => v.id === id)
+		this.dynamicLists.splice(index, 1)
 	}
-
-	const radioChange = (n) => {
-		// console.log('radioChange', n);
-	}
-
-	const navigateBack = () => {
-		uni.navigateBack()
-	}
-
-	const sexSelect = (e) => {
-		model1.userInfo.sex = e.name
-		$refs.form1.validateField('userInfo.sex')
-	}
-
-	const change = (e) => {
-		// console.log(e);
-	}
-
-	const formatter = (day) => {
-		const d = new Date()
-		let month = d.getMonth() + 1
-		const date = d.getDate()
-		if (day.month == month && day.day == date + 3) {
-			day.bottomInfo = '有优惠'
-			day.dot = true
-		}
-		return day
-	}
-
-	const calendarConfirm = (e) => {
-		showCalendar.value = false
-		model1.hotel = `${e[0]} / ${e[e.length - 1]}`
-		$refs.form1.validateField('hotel')
-	}
-
-	const codeChange = (text) => {
-		tips.value = text;
-	}
-
-	const getCode = () => {
-		if ($refs.uCode.canGetCode) {
-			// 模拟向后端请求验证码
-			uni.showLoading({
-				title: '正在获取验证码'
+	const submit = (ref) => {
+		console.log(this.baseFormData);
+		this.$refs[ref].validate().then(res => {
+			console.log('success', res);
+			uni.showToast({
+				title: `校验通过`
 			})
-			setTimeout(() => {
-				uni.hideLoading();
-				// 这里此提示会被start()方法中的提示覆盖
-				uni.$u.toast('验证码已发送');
-				// 通知验证码组件内部开始倒计时
-				$refs.uCode.start();
-			}, 2000);
-		} else {
-			uni.$u.toast('倒计时结束后再发送');
-		}
-	}
-
-	const calendarClose = () => {
-		showCalendar.value = false
-		$refs.form1.validateField('hotel')
-	}
-
-	const birthdayClose = () => {
-		showBirthday.value = false
-		$refs.form1.validateField('userInfo.birthday')
-	}
-
-	const birthdayConfirm = (e) => {
-		showBirthday.value = false
-		model1.userInfo.birthday = uni.$u.timeFormat(e.value, 'yyyy-mm-dd')
-		$refs.form1.validateField('userInfo.birthday')
-	}
-
-	const submit = () => {
-		// 如果有错误，会在catch中返回报错信息数组，校验通过则在then中返回true
-		$refs.form1.validate().then(res => {
-			uni.$u.toast('校验通过')
-		}).catch(errors => {
-			uni.$u.toast('校验失败')
+		}).catch(err => {
+			console.log('err', err);
 		})
 	}
-
-	const reset = () => {
-		const validateList = ['userInfo.name', 'userInfo.sex', 'radiovalue1', 'checkboxValue1', 'intro',
-		'hotel', 'code', 'userInfo.birthday']
-		$refs.form1.resetFields()
-		$refs.form1.clearValidate()
-		setTimeout(()=>{
-			$refs.form1.clearValidate(validateList)
-			// 或者使用 $refs.form1.clearValidate()
-		},10)
-	}
-
-	const hideKeyboard = () => {
-		uni.hideKeyboard()
-	}
-	
-	
 </script>
 
-<style lang="scss">
-	.status_bar {
-		height: var(--status-bar-height);
-		width: 100%;
+<style lang="scss" scoped>
+	.item-uni-tag {
+		view {
+			display: flex;
+			flex-flow: row wrap;
+			align-items: center;
+			justify-content: space-between;
+			margin-top: 7rpx;
+		}
+		
+	}
+	
+	.example {
+		padding: 15px;
+		background-color: #fff;
+	}
+
+	.segmented-control {
+		margin-bottom: 15px;
+	}
+
+	.button-group {
+		margin-top: 15px;
+		display: flex;
+		justify-content: space-around;
+	}
+
+	.form-item {
+		display: flex;
+		align-items: center;
+		flex: 1;
+	}
+
+	.button {
+		display: flex;
+		align-items: center;
+		height: 35px;
+		line-height: 35px;
+		margin-left: 10px;
 	}
 </style>
